@@ -1,31 +1,49 @@
 import cv2
 
+
 def resize_image(image, new_width=400):
+    """Resize an image while preserving its aspect ratio."""
+
     if image is None:
         raise ValueError("Image could not be loaded.")
+
+    if new_width <= 0:
+        raise ValueError("Width must be greater than zero.")
+
     original_height, original_width = image.shape[:2]
 
-    new_height = int(original_height * new_width / original_width)
+    new_height = int(
+        original_height * new_width / original_width
+    )
 
-    resized_image = cv2.resize(image, (new_width, new_height))
+    resized_image = cv2.resize(
+        image, (new_width, new_height)
+    )
 
     return resized_image
 
 
-# Read the image
-image = cv2.imread("data/test.jpg")
+if __name__ == "__main__":
+    # Read the image
+    image = cv2.imread("data/test.jpg")
 
-# Resize the image
-resized_image = resize_image(image)
+    if image is None:
+        raise FileNotFoundError(
+            "Could not find or read data/test.jpg"
+        )
 
-# Save the resized image
-cv2.imwrite("data/resized_test.jpg", resized_image)
+    # Resize the image
+    resized_image = resize_image(image)
 
-# Print dimensions
-print(resized_image.shape)
+    # Save the resized image
+    cv2.imwrite("data/resized_test.jpg", resized_image)
 
-# Display image
-cv2.imshow("Resized FixMyArea Image", resized_image)
+    # Print dimensions
+    print("Original shape:", image.shape)
+    print("Resized shape:", resized_image.shape)
 
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+    # Display image
+    cv2.imshow("Resized FixMyArea Image", resized_image)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
