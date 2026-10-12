@@ -6,7 +6,10 @@ def resize_image(image, new_width=400):
 
     if image is None:
         raise ValueError("Image could not be loaded.")
-
+    if len(image.shape) < 2:
+        raise ValueError("Invalid image dimensions.")
+    if image.shape[1] == 0:
+        ValueError("Image width must be greater than zero.")
     if new_width <= 0:
         raise ValueError("Width must be greater than zero.")
 
