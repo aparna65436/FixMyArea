@@ -1,6 +1,4 @@
 import cv2
-
-
 def resize_image(image, new_width=400):
     """Resize an image while preserving its aspect ratio."""
 
@@ -9,7 +7,7 @@ def resize_image(image, new_width=400):
     if len(image.shape) < 2:
         raise ValueError("Invalid image dimensions.")
     if image.shape[1] == 0:
-        ValueError("Image width must be greater than zero.")
+        raise ValueError("Image width must be greater than zero.")
     if new_width <= 0:
         raise ValueError("Width must be greater than zero.")
 
